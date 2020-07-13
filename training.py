@@ -53,7 +53,6 @@ hist = model.fit(x=x_train, y=y_train, validation_data=(x_test, y_test), epochs=
 def save_plot(training_history):
     # saves training progress logs in plots
     # summarize and save loss plot
-    plt.subplot(211)
     plt.title('Cross Entropy Loss')
     plt.plot(training_history.history['loss'], color='purple', label='train')
     plt.plot(training_history.history['val_loss'], color='green', label='test')
@@ -64,7 +63,6 @@ def save_plot(training_history):
     plt.savefig('loss_plot.png')
     plt.close()
     # summarize and save accuracy plot
-    plt.subplot(212)
     plt.title('Classification Accuracy')
     plt.plot(training_history.history['accuracy'], color='purple', label='train')
     plt.plot(training_history.history['val_accuracy'], color='green', label='test')
