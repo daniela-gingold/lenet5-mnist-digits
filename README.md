@@ -7,7 +7,7 @@ model.h5 is the best model (with the smallest validation loss).
 training_log.csv contains loss and accuracy documentation for each epoch during the trainig.
 plot.png is the training progress plot of loss and accuracy as follows:
 
-![3](/plot.png)
+![plot](/plot.png)
 
 MNIST Digits is a database of 28x28 grayscale images of 10 handwritten digits, which includes 60,000 training images and 10,000 test images. 
 
