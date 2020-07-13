@@ -47,39 +47,35 @@ csvlogger = CSVLogger('training_log.csv', separator=',', append = False)
 callbacks = [checkpoint, csvlogger]
 
 # train the model
-hist = model.fit(x=x_train, y=y_train, validation_data=(x_test, y_test), epochs=20, batch_size=128, verbose=1, callbacks=callbacks)
+n_epochs = 30
+hist = model.fit(x=x_train, y=y_train, validation_data=(x_test, y_test), epochs=n_epochs, batch_size=128, verbose=1, callbacks=callbacks)
 
 
-def save_plot(training_history):
+def save_plot(training_history, num_epochs):
     # saves training progress logs in plots
     # summarize and save loss plot
-    plt.title('Cross Entropy Loss')
+    plt.subplot(211)
     plt.plot(training_history.history['loss'], color='purple', label='train')
     plt.plot(training_history.history['val_loss'], color='green', label='test')
+    plt.xticks(np.arange(0, num_epochs + 1, 2.0))
     plt.legend(loc="upper right")
-    plt.xlabel('epoch')
     plt.ylabel('loss')
-    plt.xticks(np.arange(0, len(training_history.history['loss']) + 1, 2.0))
-    plt.savefig('loss_plot.png')
-    plt.close()
     # summarize and save accuracy plot
-    plt.title('Classification Accuracy')
+    plt.subplot(212)
     plt.plot(training_history.history['accuracy'], color='purple', label='train')
     plt.plot(training_history.history['val_accuracy'], color='green', label='test')
+    plt.xticks(np.arange(0, num_epochs + 1, 2.0))
     plt.legend(loc="lower right")
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
-    plt.xticks(np.arange(0, len(training_history.history['loss']) + 1, 2.0))
-    plt.savefig('acc_plot.png')
+    plt.savefig('plot.png')
     plt.close()
 
-
-
-save_plot(hist)
+save_plot(hist, n_epochs)
 
 # evaluate predictions
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
-print('Test accuracy:', score[1])
+print('Test accuracy:', (score[1]))
 
 

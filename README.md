@@ -3,12 +3,11 @@
 This is keras implementation for MNIST Digits classification using LeNet-5. 
 
 training.py file contains the full implementation of the model training pipline.
-model.h5 is the best model (with the smallest validation loss).
-training_log.csv contains loss and accuracy documentation for each epoch during the trainig.
-loss_plot.png and acc_plot.png are the graphs of the loss and accuracy progress during the training process as follows:
+model.h5 is the best model.
+training_log.csv contains loss and accuracy documentation for each epoch.
+plot.png is the vizualization of the loss and accuracy progress during the training, as follows:
 
-![loss](/loss_plot.png)
-![acc](/acc_plot.png)
+![plot](/loss_plot.png)
 
 MNIST Digits is a database of 28x28 grayscale images of 10 handwritten digits, which includes 60,000 training images and 10,000 test images. 
 
