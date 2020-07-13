@@ -5,8 +5,8 @@ from keras.callbacks import ModelCheckpoint
 from keras.callbacks import CSVLogger
 from matplotlib import pyplot as plt
 from keras import layers
+import numpy as np
 import keras
-import os
 
 # load data
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -41,11 +41,8 @@ model.compile(loss=keras.losses.categorical_crossentropy, optimizer='SGD', metri
 # print the summary of the model
 model.summary()
 
-# prepare directory to save model
-filepah = os.path.join(os.getcwd(), 'model.h5')
-
 # prepare callbacks
-checkpoint = ModelCheckpoint(filepath=filepah, monitor='val_accuracy', verbose=1, save_best_only=True)
+checkpoint = ModelCheckpoint(filepath='model.h5', monitor='val_accuracy', verbose=1, save_best_only=True)
 csvlogger = CSVLogger('training_log.csv', separator=',', append = False)
 callbacks = [checkpoint, csvlogger]
 
@@ -53,28 +50,34 @@ callbacks = [checkpoint, csvlogger]
 hist = model.fit(x=x_train, y=y_train, validation_data=(x_test, y_test), epochs=20, batch_size=128, verbose=1, callbacks=callbacks)
 
 
-
-
-def plot(training_history):
-    # save the training progress log
-    # plot loss
+def save_plot(training_history):
+    # saves training progress logs in plots
+    # summarize and save loss plot
     plt.subplot(211)
     plt.title('Cross Entropy Loss')
-    plt.plot(hist.history['loss'], color='purple', label='train')
-    plt.plot(hist.history['val_loss'], color='green', label='test')
+    plt.plot(training_history.history['loss'], color='purple', label='train')
+    plt.plot(training_history.history['val_loss'], color='green', label='test')
     plt.legend(loc="upper right")
-    # plot accuracy
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.xticks(np.arange(0, len(training_history.history['loss']) + 1, 2.0))
+    plt.savefig('loss_plot.png')
+    plt.close()
+    # summarize and save accuracy plot
     plt.subplot(212)
     plt.title('Classification Accuracy')
-    plt.plot(hist.history['accuracy'], color='purple', label='train')
-    plt.plot(hist.history['val_accuracy'], color='green', label='test')
+    plt.plot(training_history.history['accuracy'], color='purple', label='train')
+    plt.plot(training_history.history['val_accuracy'], color='green', label='test')
     plt.legend(loc="lower right")
-    # save plot
-    plt.savefig('plot.png')
+    plt.xlabel('epoch')
+    plt.ylabel('accuracy')
+    plt.xticks(np.arange(0, len(training_history.history['loss']) + 1, 2.0))
+    plt.savefig('acc_plot.png')
     plt.close()
 
 
-plot(hist)
+
+save_plot(hist)
 
 # evaluate predictions
 score = model.evaluate(x_test, y_test, verbose=0)
