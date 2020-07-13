@@ -54,23 +54,27 @@ hist = model.fit(x=x_train, y=y_train, validation_data=(x_test, y_test), epochs=
 
 
 
-# plot loss and accuracy
-plt.subplot(211)
-plt.title('Cross Entropy Loss')
-plt.plot(hist.history['loss'], color='purple', label='train')
-plt.plot(hist.history['val_loss'], color='green', label='test')
-plt.legend(loc="upper right")
 
-plt.subplot(212)
-plt.title('Classification Accuracy')
-plt.plot(hist.history['accuracy'], color='purple', label='train')
-plt.plot(hist.history['val_accuracy'], color='green', label='test')
-plt.legend(loc="lower right")
-plt.show()
+def plot(training_history):
+    # save the training progress log
+    # plot loss
+    plt.subplot(211)
+    plt.title('Cross Entropy Loss')
+    plt.plot(hist.history['loss'], color='purple', label='train')
+    plt.plot(hist.history['val_loss'], color='green', label='test')
+    plt.legend(loc="upper right")
+    # plot accuracy
+    plt.subplot(212)
+    plt.title('Classification Accuracy')
+    plt.plot(hist.history['accuracy'], color='purple', label='train')
+    plt.plot(hist.history['val_accuracy'], color='green', label='test')
+    plt.legend(loc="lower right")
+    # save plot
+    plt.savefig('plot.png')
+    plt.close()
 
-# save plot
-plt.savefig('plot.png')
-plt.close()
+
+plot(hist)
 
 # evaluate predictions
 score = model.evaluate(x_test, y_test, verbose=0)
