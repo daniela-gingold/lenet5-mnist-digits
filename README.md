@@ -2,10 +2,10 @@
 
 This is keras implementation for MNIST Digits classification using LeNet-5. 
 
-training.py file contains the full implementation of the model training pipline.
-model.h5 is the best model.
-training_log.csv contains loss and accuracy documentation for each epoch.
-plot.png is the vizualization of the loss and accuracy progress during the training, as follows:
+**training.py** file contains the full implementation of the model training pipline.
+**model.h5** is the best model.
+**training_log.csv** contains loss and accuracy documentation for each epoch.
+**plot.png** is the vizualization of the loss and accuracy progress during the training, as follows:
 
 ![plot](/plot.png)
 
